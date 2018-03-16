@@ -98,27 +98,48 @@ public class Configuration {
 
   protected Environment environment;
 
+  /*
+  * 这些都可以通过settings中的setting记性配置
+  * */
+  //是否启用行内嵌套语句
   protected boolean safeRowBoundsEnabled;
   protected boolean safeResultHandlerEnabled = true;
+  //是否启用数据中 A_column 自动映射 到 java类中驼峰命名的属性 default-fasle
   protected boolean mapUnderscoreToCamelCase;
+  //是否懒加载,默认false,mybatis不长用于级联查询,所有默认为false
   protected boolean aggressiveLazyLoading;
+  //是否允许单条sql返回多个数据集(取决于驱动的兼容性)default:true
   protected boolean multipleResultSetsEnabled = true;
+  //允许JDBC生成主键。需要驱动器支持。如果设为了true，这个设置将强制使用被生成的主键，有一些驱动器不兼容不过仍然可以执行。default:false
   protected boolean useGeneratedKeys;
+  //是否可以使用列的别名(取决于驱动的兼容性) default:true
   protected boolean useColumnLabel = true;
+  //配置全局性cache 的 (开/关) default:true,即便全局性的cache是开启的,如果mapper中没有配置cache也是不起作用的.为了简化配置默认设置为true
   protected boolean cacheEnabled = true;
+  //在null时也调用setter,适应于返回Map,3.2版本以上可用
   protected boolean callSettersOnNulls;
+  //全局配置：useActualParamName（需要jdk 1.8），name=入参参数名
   protected boolean useActualParamName = true;
+  //当选取列的所有行都是空的时候,Mybatis默认返回空.返回空的实例.也适用于嵌套的Collection和Association.从3.4.2
   protected boolean returnInstanceForEmptyRow;
-
+  //指定mybatis添加到日志中前缀
   protected String logPrefix;
+  //指定所有日志的默认实现,不设置的话会默认查找
   protected Class <? extends Log> logImpl;
+  //指定VFS的实现
   protected Class <? extends VFS> vfsImpl;
+  //本地缓存范围,Mybatis默认采用本地缓存机制(Local Cache)防止循环引用和加速重复嵌套查询.默认值为session,缓存一个session中执行的所有查询,若设置为STATEMENT本地缓存上,同一个sqlSession不会共享数据
   protected LocalCacheScope localCacheScope = LocalCacheScope.SESSION;
+  //没有配置jdbcType时,值为null时的类型.一般用默认值即可,为null或者other即可.
   protected JdbcType jdbcTypeForNull = JdbcType.OTHER;
+  //指定对象的哪个方法使用一次延迟加载
   protected Set<String> lazyLoadTriggerMethods = new HashSet<String>(Arrays.asList(new String[] { "equals", "clone", "hashCode", "toString" }));
+  //默认超时时间
   protected Integer defaultStatementTimeout;
+  //默认数据抓取大小
   protected Integer defaultFetchSize;
   protected ExecutorType defaultExecutorType = ExecutorType.SIMPLE;
+  //指定MyBatis如何自动映射数据基表的列NONE：不映射PARTIAL:部分FULL:全部
   protected AutoMappingBehavior autoMappingBehavior = AutoMappingBehavior.PARTIAL;
   protected AutoMappingUnknownColumnBehavior autoMappingUnknownColumnBehavior = AutoMappingUnknownColumnBehavior.NONE;
 
@@ -137,8 +158,10 @@ public class Configuration {
    *
    * @see <a href='https://code.google.com/p/mybatis/issues/detail?id=300'>Issue 300 (google code)</a>
    */
+  //配置使用的工厂类
   protected Class<?> configurationFactory;
 
+  //以下属性(参数)不能作为全部配置
   protected final MapperRegistry mapperRegistry = new MapperRegistry(this);
   protected final InterceptorChain interceptorChain = new InterceptorChain();
   protected final TypeHandlerRegistry typeHandlerRegistry = new TypeHandlerRegistry();
@@ -171,6 +194,7 @@ public class Configuration {
     this.environment = environment;
   }
 
+  //默认类型别名注册
   public Configuration() {
     typeAliasRegistry.registerAlias("JDBC", JdbcTransactionFactory.class);
     typeAliasRegistry.registerAlias("MANAGED", ManagedTransactionFactory.class);
@@ -351,6 +375,7 @@ public class Configuration {
 
   public void setProxyFactory(ProxyFactory proxyFactory) {
     if (proxyFactory == null) {
+      //默认使用java代理工厂
       proxyFactory = new JavassistProxyFactory();
     }
     this.proxyFactory = proxyFactory;
@@ -520,6 +545,7 @@ public class Configuration {
     return languageRegistry;
   }
 
+  //脚本处理器,如果脚本处理器没有设置则使用XML语言的处理器
   public void setDefaultScriptingLanguage(Class<?> driver) {
     if (driver == null) {
       driver = XMLLanguageDriver.class;
@@ -541,25 +567,27 @@ public class Configuration {
     return MetaObject.forObject(object, objectFactory, objectWrapperFactory, reflectorFactory);
   }
 
+  //参数拦截器
   public ParameterHandler newParameterHandler(MappedStatement mappedStatement, Object parameterObject, BoundSql boundSql) {
     ParameterHandler parameterHandler = mappedStatement.getLang().createParameterHandler(mappedStatement, parameterObject, boundSql);
     parameterHandler = (ParameterHandler) interceptorChain.pluginAll(parameterHandler);
     return parameterHandler;
   }
-
+  //结果集拦截器
   public ResultSetHandler newResultSetHandler(Executor executor, MappedStatement mappedStatement, RowBounds rowBounds, ParameterHandler parameterHandler,
       ResultHandler resultHandler, BoundSql boundSql) {
     ResultSetHandler resultSetHandler = new DefaultResultSetHandler(executor, mappedStatement, parameterHandler, resultHandler, boundSql, rowBounds);
     resultSetHandler = (ResultSetHandler) interceptorChain.pluginAll(resultSetHandler);
     return resultSetHandler;
   }
-
+  //sql表达式处理器拦截器
   public StatementHandler newStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
     StatementHandler statementHandler = new RoutingStatementHandler(executor, mappedStatement, parameterObject, rowBounds, resultHandler, boundSql);
     statementHandler = (StatementHandler) interceptorChain.pluginAll(statementHandler);
     return statementHandler;
   }
 
+  //执行拦截器
   public Executor newExecutor(Transaction transaction) {
     return newExecutor(transaction, defaultExecutorType);
   }
@@ -765,6 +793,7 @@ public class Configuration {
   }
 
   /*
+   * 缓存中尚未处理的表达式节点.推荐做法是当所有的mappers加入是一次性调用.
    * Parses all the unprocessed statement nodes in the cache. It is recommended
    * to call this method once all the mappers are added as it provides fail-fast
    * statement validation.
@@ -841,6 +870,9 @@ public class Configuration {
     }
   }
 
+  /*
+  * StrictMap 扩展了HashMap加入name属性,保护性访问
+  * */
   protected static class StrictMap<V> extends HashMap<String, V> {
 
     private static final long serialVersionUID = -4950446264854982944L;
