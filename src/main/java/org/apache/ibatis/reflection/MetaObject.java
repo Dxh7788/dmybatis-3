@@ -53,6 +53,9 @@ public class MetaObject {
     } else if (object instanceof Collection) {
       this.objectWrapper = new CollectionWrapper(this, (Collection) object);
     } else {
+      /*
+      * 使用BeanWrapper解析Bean对象,封装setter属性等
+      * */
       this.objectWrapper = new BeanWrapper(this, object);
     }
   }

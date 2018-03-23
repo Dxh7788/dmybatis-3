@@ -131,16 +131,25 @@ public class DefaultSqlSession implements SqlSession {
     }
   }
 
+  /*
+  * statement执行
+  * */
   @Override
   public <E> List<E> selectList(String statement) {
     return this.selectList(statement, null);
   }
 
+  /*
+  * prepareStatement执行,非分页处理
+  * */
   @Override
   public <E> List<E> selectList(String statement, Object parameter) {
     return this.selectList(statement, parameter, RowBounds.DEFAULT);
   }
 
+  /*
+  * prepareStatement执行,分页处理
+  * */
   @Override
   public <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds) {
     try {

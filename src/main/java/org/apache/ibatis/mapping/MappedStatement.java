@@ -33,27 +33,49 @@ import org.apache.ibatis.session.Configuration;
  */
 public final class MappedStatement {
 
+  //使用的资源文件,如xxxMapper.xml等
   private String resource;
+  //全局的configuration
   private Configuration configuration;
+  //执行sql的id值
   private String id;
+  //每次从数据库抓取数据大小,如果设置则会覆盖Configuration中设置的全局fetchSize
   private Integer fetchSize;
+  //超时时间
   private Integer timeout;
+  //SQL语句对象的类型,可以使statement、PREPARED(预处理语句)、和CALLABLE(存储过程)
   private StatementType statementType;
+  //待定 TODO
   private ResultSetType resultSetType;
+  //SqlSource封装了拼接完整sql的所有资源
   private SqlSource sqlSource;
+  //缓存
   private Cache cache;
+  //参数Map
   private ParameterMap parameterMap;
+  //结果Map集合
   private List<ResultMap> resultMaps;
+  //缓存控制参数,是否需要flush缓存
   private boolean flushCacheRequired;
+  //是否要是用缓存
   private boolean useCache;
+  //结果顺序
   private boolean resultOrdered;
+  //sql命令的类型,主要是CRUD,如SELECT/UPDATE/DELETE/INSERT/FLUSH/UNKNOWN
   private SqlCommandType sqlCommandType;
+  //主键产生器
   private KeyGenerator keyGenerator;
+  //主键属性集合
   private String[] keyProperties;
+  //关键列
   private String[] keyColumns;
+  //是否有嵌套ResultMap
   private boolean hasNestedResultMaps;
+  //是用那个数据库
   private String databaseId;
+  //日志
   private Log statementLog;
+  //是用什么语言的驱动器,如Mysql,PostPreSql等
   private LanguageDriver lang;
   private String[] resultSets;
 

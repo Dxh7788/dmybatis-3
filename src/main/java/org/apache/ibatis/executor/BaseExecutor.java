@@ -129,13 +129,23 @@ public abstract class BaseExecutor implements Executor {
     return doFlushStatements(isRollBack);
   }
 
+  /*
+  * 非缓存查找,但底层会创建cache key后调用缓存查找,其中MappedStatement ms是最重要的参数,它保存了执行过程中所有的数据.
+  * RowBounds rowBounds:保存了读取数据的数据,读取数据的开始位置与条数.
+  * */
   @Override
   public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
+    /*
+    * 获取绑定sql,BoundSql即绑定了参数值的sql语句
+    * */
     BoundSql boundSql = ms.getBoundSql(parameter);
     CacheKey key = createCacheKey(ms, parameter, rowBounds, boundSql);
     return query(ms, parameter, rowBounds, resultHandler, key, boundSql);
  }
 
+  /*
+  * 缓存查找
+  * */
   @SuppressWarnings("unchecked")
   @Override
   public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {

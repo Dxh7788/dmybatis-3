@@ -420,7 +420,7 @@ public class DefaultResultSetHandler implements ResultSetHandler {
   }
 
   //
-  // PROPERTY MAPPINGS
+  // PROPERTY MAPPINGS 向属性填充值
   //
 
   private boolean applyPropertyMappings(ResultSetWrapper rsw, ResultMap resultMap, MetaObject metaObject, ResultLoaderMap lazyLoader, String columnPrefix)

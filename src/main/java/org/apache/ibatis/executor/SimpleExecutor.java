@@ -82,7 +82,9 @@ public class SimpleExecutor extends BaseExecutor {
   private Statement prepareStatement(StatementHandler handler, Log statementLog) throws SQLException {
     Statement stmt;
     Connection connection = getConnection(statementLog);
+    //Statement准备
     stmt = handler.prepare(connection, transaction.getTimeout());
+    //statement加入参数值
     handler.parameterize(stmt);
     return stmt;
   }

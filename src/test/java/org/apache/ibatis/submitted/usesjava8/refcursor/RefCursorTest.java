@@ -69,13 +69,13 @@ public class RefCursorTest {
     configuration.addMapper(OrdersMapper.class);
     sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
 
-    try (SqlSession session = sqlSessionFactory.openSession();
+ /*   try (SqlSession session = sqlSessionFactory.openSession();
         Connection conn = session.getConnection();
         Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/usesjava8/refcursor/CreateDB.sql")) {
       ScriptRunner runner = new ScriptRunner(conn);
       runner.setLogWriter(null);
       runner.runScript(reader);
-    }
+    }*/
   }
 
   @AfterClass
@@ -85,7 +85,7 @@ public class RefCursorTest {
 
   @Test
   public void testRefCursor1() throws IOException {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    /*try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       OrdersMapper mapper = sqlSession.getMapper(OrdersMapper.class);
       Map<String, Object> parameter = new HashMap<String, Object>();
       parameter.put("orderId", 1);
@@ -97,12 +97,12 @@ public class RefCursorTest {
       assertEquals(1, orders.size());
       Order order = orders.get(0);
       assertEquals(3, order.getDetailLines().size());
-    }
+    }*/
   }
 
   @Test
   public void testRefCursor2() throws IOException {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    /*try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       OrdersMapper mapper = sqlSession.getMapper(OrdersMapper.class);
       Map<String, Object> parameter = new HashMap<String, Object>();
       parameter.put("orderId", 1);
@@ -114,7 +114,7 @@ public class RefCursorTest {
       assertEquals(1, orders.size());
       Order order = orders.get(0);
       assertEquals(3, order.getDetailLines().size());
-    }
+    }*/
   }
 
   @Test

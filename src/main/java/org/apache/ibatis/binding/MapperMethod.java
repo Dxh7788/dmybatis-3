@@ -69,17 +69,18 @@ public class MapperMethod {
         break;
       }
       case SELECT:
-        if (method.returnsVoid() && method.hasResultHandler()) {
+        if (method.returnsVoid() && method.hasResultHandler()) {//返回为空而且配置了自身的ResultHandler时调用
           executeWithResultHandler(sqlSession, args);
           result = null;
-        } else if (method.returnsMany()) {
+        } else if (method.returnsMany()) {//返回为数组或者集合时调用
           result = executeForMany(sqlSession, args);
-        } else if (method.returnsMap()) {
+        } else if (method.returnsMap()) {//返回为Map时调用
           result = executeForMap(sqlSession, args);
-        } else if (method.returnsCursor()) {
+        } else if (method.returnsCursor()) {//存储过程调用
           result = executeForCursor(sqlSession, args);
-        } else {
+        } else {//返回为空且没有配置ResultHandler时或者是单个对象时调用
           Object param = method.convertArgsToSqlCommandParam(args);
+          //选取单个对象时统一调用session的selectOne
           result = sqlSession.selectOne(command.getName(), param);
         }
         break;
@@ -292,7 +293,7 @@ public class MapperMethod {
       this.returnsMap = this.mapKey != null;
       this.rowBoundsIndex = getUniqueParamIndex(method, RowBounds.class);
       this.resultHandlerIndex = getUniqueParamIndex(method, ResultHandler.class);
-      this.paramNameResolver = new ParamNameResolver(configuration, method);
+      this.paramNameResolver = new ParamNameResolver(configuration, method);//参数解析器
     }
 
     public Object convertArgsToSqlCommandParam(Object[] args) {

@@ -29,6 +29,10 @@ import org.apache.ibatis.transaction.Transaction;
 
 /**
  * @author Clinton Begin
+ * Executor是代理类的基本接口,真正执行数据操作的方法都存在于该接口.比如更新、查询、删除、增加等。
+ * Mybatis提供了5个实现类。SimpleExecutor、CachingExecutor、ReuseExecutor、BatchExecutor、CloseExecutor。其中
+ * SimpleExecutor、ReuseExecutor、BatchExecutor、CloseExecutor都继承了BaseExecutor,BaseExecutor是实现了Executor
+ * 接口方法的模板类.
  */
 public interface Executor {
 
