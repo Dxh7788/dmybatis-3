@@ -61,10 +61,14 @@ public class XMLStatementBuilder extends BaseBuilder {
       return;
     }
 
+    //解析每次抓取数据大小
     Integer fetchSize = context.getIntAttribute("fetchSize");
+    //超时时间
     Integer timeout = context.getIntAttribute("timeout");
+    //parameterMap
     String parameterMap = context.getStringAttribute("parameterMap");
-    String parameterType = context.getStringAttribute("parameterType");
+    //parameterMap
+    String parameterType = context.getStringAttribute("parameterMap");
     Class<?> parameterTypeClass = resolveClass(parameterType);
     String resultMap = context.getStringAttribute("resultMap");
     String resultType = context.getStringAttribute("resultType");

@@ -91,6 +91,9 @@ public class XMLConfigBuilder extends BaseBuilder {
     this.parser = parser;
   }
 
+  /*
+  * 主解析入口
+  * */
   public Configuration parse() {
     if (parsed) {
       throw new BuilderException("Each XMLConfigBuilder can only be used once.");
@@ -100,6 +103,10 @@ public class XMLConfigBuilder extends BaseBuilder {
     return configuration;
   }
 
+  /*
+  * 第一层解析 properties|setting|typeAliases|plugins|objectFactory|objectWrapperFactory|reflectorFactory|environments|databaseIdProvider|typeHandlers|mappers
+  * 配置顺序要求为 properties| settings| typeAliases| typeHandlers| objectFactory| objectWrapperFactory| reflectorFactory| plugins| environments| databaseIdProvider| mappers
+  * */
   private void parseConfiguration(XNode root) {
     try {
       //issue #117 read properties first
