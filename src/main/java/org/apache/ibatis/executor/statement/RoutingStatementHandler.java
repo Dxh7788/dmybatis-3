@@ -30,6 +30,7 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
 /**
+ * RoutingStatementHandler是StatementHandler的装饰类,用来增强实现StatementHandler接口的类的功能
  * @author Clinton Begin
  */
 public class RoutingStatementHandler implements StatementHandler {

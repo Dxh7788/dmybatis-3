@@ -113,6 +113,10 @@ public abstract class BaseExecutor implements Executor {
     if (closed) {
       throw new ExecutorException("Executor was closed.");
     }
+    //insert,delete和update会首先清空本地缓存,找一下原因?
+    //原因可能是如果插入的数据可能需要加入缓存,如果缓存没有清空,插入后,执行查询找不到新插入的数据.
+    //比如说A表的查询是要加入缓存中的,如果这时向A表加入了一条记录,紧接着又查询A表,那么查询语句得到
+    //的是缓存中的数据而不是插入后新的数据。这在应用场景中不合适。如果使用第三方缓存插件,该问题需要着重解决
     clearLocalCache();
     return doUpdate(ms, parameter);
   }
@@ -153,6 +157,7 @@ public abstract class BaseExecutor implements Executor {
     if (closed) {
       throw new ExecutorException("Executor was closed.");
     }
+    //如果queryStack为0并且该sql配置@Flush强制清除时清空本地缓存
     if (queryStack == 0 && ms.isFlushCacheRequired()) {
       clearLocalCache();
     }
@@ -161,8 +166,10 @@ public abstract class BaseExecutor implements Executor {
       queryStack++;
       list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
       if (list != null) {
+        //如果是存储过程的缓存,则进入handleLocallyCachedOutputParameters进行参数处理,过滤出来的就是存储过程的缓存内容
         handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
       } else {
+        //如果在一级缓存中没有找到相应的数据则从数据库中查找
         list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);
       }
     } finally {
@@ -174,6 +181,7 @@ public abstract class BaseExecutor implements Executor {
       }
       // issue #601
       deferredLoads.clear();
+      //STATEMENT不使用一级缓存
       if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {
         // issue #482
         clearLocalCache();
@@ -188,6 +196,7 @@ public abstract class BaseExecutor implements Executor {
     return doQueryCursor(ms, parameter, rowBounds, boundSql);
   }
 
+  //嵌套查询的deferLoad TODO
   @Override
   public void deferLoad(MappedStatement ms, MetaObject resultObject, String property, CacheKey key, Class<?> targetType) {
     if (closed) {

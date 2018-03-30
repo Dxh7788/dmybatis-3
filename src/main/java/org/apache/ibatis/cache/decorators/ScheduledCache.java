@@ -20,6 +20,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import org.apache.ibatis.cache.Cache;
 
 /**
+ * ScheduledCache是一个定时清除cache缓存内容的缓存器,它并不是一个定时器,而是在使用的时候根据时效性来清除
  * @author Clinton Begin
  */
 public class ScheduledCache implements Cache {

@@ -99,6 +99,7 @@ public class CacheBuilder {
         cache = newCacheDecoratorInstance(decorator, cache);
         setCacheProperties(cache);
       }
+      //真正的Cache被装饰成新的类
       cache = setStandardDecorators(cache);
     } else if (!LoggingCache.class.isAssignableFrom(cache.getClass())) {
       cache = new LoggingCache(cache);
@@ -118,18 +119,24 @@ public class CacheBuilder {
   private Cache setStandardDecorators(Cache cache) {
     try {
       MetaObject metaCache = SystemMetaObject.forObject(cache);
+      //如果配置了size,则最好使用FIFO先进先出缓存,否则不起任何作用.或者自定义的缓存中存在size属性
       if (size != null && metaCache.hasSetter("size")) {
         metaCache.setValue("size", size);
       }
+      //如果配置了flushInternal,则会使用ScheduledCache,如果Cache有实ScheduledCache现类,则会被覆盖掉而使用ScheduledCache
       if (clearInterval != null) {
         cache = new ScheduledCache(cache);
         ((ScheduledCache) cache).setClearInterval(clearInterval);
       }
+      //如果配置了readWrite为true,则会使用序列化缓存,改缓存的作用是把读入的对象序列化保存,读出的数据先序列化然后再读出.
       if (readWrite) {
         cache = new SerializedCache(cache);
       }
+      //然后都会封装成LoggingCache,方便进行日志处理
       cache = new LoggingCache(cache);
+      //最后做线程安全处理
       cache = new SynchronizedCache(cache);
+      //如果配置了blocking,则会封装成阻塞缓存
       if (blocking) {
         cache = new BlockingCache(cache);
       }

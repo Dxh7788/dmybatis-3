@@ -77,6 +77,7 @@ public class ReuseExecutor extends BaseExecutor {
     return Collections.emptyList();
   }
 
+  //重用Executor会首先查询该Sql是否曾执行过,该sql是完整的Sql
   private Statement prepareStatement(StatementHandler handler, Log statementLog) throws SQLException {
     Statement stmt;
     BoundSql boundSql = handler.getBoundSql();

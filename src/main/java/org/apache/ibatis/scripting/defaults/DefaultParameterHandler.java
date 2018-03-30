@@ -61,6 +61,7 @@ public class DefaultParameterHandler implements ParameterHandler {
   @Override
   public void setParameters(PreparedStatement ps) {
     ErrorContext.instance().activity("setting parameters").object(mappedStatement.getParameterMap().getId());
+    //获取所有ParameterMapping
     List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
     if (parameterMappings != null) {
       for (int i = 0; i < parameterMappings.size(); i++) {
@@ -72,9 +73,10 @@ public class DefaultParameterHandler implements ParameterHandler {
             value = boundSql.getAdditionalParameter(propertyName);
           } else if (parameterObject == null) {
             value = null;
-          } else if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
+          } else if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {//如果配置有类型转换器
             value = parameterObject;
           } else {
+            //开始解析属性的值
             MetaObject metaObject = configuration.newMetaObject(parameterObject);
             value = metaObject.getValue(propertyName);
           }
