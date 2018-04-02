@@ -116,7 +116,9 @@ public class CachingExecutor implements Executor {
 
   @Override
   public void commit(boolean required) throws SQLException {
+    //使用BaseExecutor提交
     delegate.commit(required);
+    //二级缓存相关
     tcm.commit();
   }
 

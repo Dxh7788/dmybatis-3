@@ -259,6 +259,7 @@ public abstract class BaseExecutor implements Executor {
     }
     clearLocalCache();
     flushStatements();
+    //事务提交,默认不开启,如果使用缓存时注意要使用session的commit
     if (required) {
       transaction.commit();
     }

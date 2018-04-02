@@ -51,6 +51,7 @@ public class TransactionalCacheManager {
     }
   }
 
+  //获取transactionalCaches中的cache,如果没有则将当前使用二级缓存放置进事务缓存
   private TransactionalCache getTransactionalCache(Cache cache) {
     TransactionalCache txCache = transactionalCaches.get(cache);
     if (txCache == null) {
