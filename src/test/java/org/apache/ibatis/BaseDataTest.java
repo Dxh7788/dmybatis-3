@@ -87,7 +87,7 @@ public abstract class BaseDataTest {
     return ds;
   }
 
-  public static DataSource createJPetstoreDataSource() throws IOException, SQLException {
+  public static DataSource createMysqlstoreDataSource() throws IOException, SQLException {
     DataSource ds = createUnpooledDataSource(MYSQL_STORE_PROPERTIES);
     runScript(ds, MYSQL_STORE_DDL);
     runScript(ds, MYSQL_STORE_DATA);
