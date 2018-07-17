@@ -33,9 +33,9 @@ public abstract class BaseDataTest {
   public static final String BLOG_DDL = "org/apache/ibatis/databases/blog/blog-derby-schema.sql";
   public static final String BLOG_DATA = "org/apache/ibatis/databases/blog/blog-derby-dataload.sql";
 
-  public static final String JPETSTORE_PROPERTIES = "org/apache/ibatis/databases/jpetstore/jpetstore-hsqldb.properties";
-  public static final String JPETSTORE_DDL = "org/apache/ibatis/databases/jpetstore/jpetstore-hsqldb-schema.sql";
-  public static final String JPETSTORE_DATA = "org/apache/ibatis/databases/jpetstore/jpetstore-hsqldb-dataload.sql";
+  public static final String MYSQL_STORE_PROPERTIES = "org/apache/ibatis/databases/mysqlstore/mysqlstore-db.properties";
+  public static final String MYSQL_STORE_DDL = "org/apache/ibatis/databases/mysqlstore/mysqlstore-db-schema.sql";
+  public static final String MYSQL_STORE_DATA = "org/apache/ibatis/databases/mysqlstore/mysqlstore-db-dataload.sql";
 
   public static UnpooledDataSource createUnpooledDataSource(String resource) throws IOException {
     Properties props = Resources.getResourceAsProperties(resource);
@@ -88,9 +88,9 @@ public abstract class BaseDataTest {
   }
 
   public static DataSource createJPetstoreDataSource() throws IOException, SQLException {
-    DataSource ds = createUnpooledDataSource(JPETSTORE_PROPERTIES);
-    runScript(ds, JPETSTORE_DDL);
-    runScript(ds, JPETSTORE_DATA);
+    DataSource ds = createUnpooledDataSource(MYSQL_STORE_PROPERTIES);
+    runScript(ds, MYSQL_STORE_DDL);
+    runScript(ds, MYSQL_STORE_DATA);
     return ds;
   }
 }
