@@ -29,9 +29,9 @@ import java.util.Properties;
 
 public abstract class BaseDataTest {
 
-  public static final String BLOG_PROPERTIES = "org/apache/ibatis/databases/blog/blog-derby.properties";
-  public static final String BLOG_DDL = "org/apache/ibatis/databases/blog/blog-derby-schema.sql";
-  public static final String BLOG_DATA = "org/apache/ibatis/databases/blog/blog-derby-dataload.sql";
+  public static final String BLOG_PROPERTIES = "org/apache/ibatis/databases/blog/blog-mysql.properties";
+  public static final String BLOG_DDL = "org/apache/ibatis/databases/blog/blog-mysql-schema.sql";
+  public static final String BLOG_DATA = "org/apache/ibatis/databases/blog/blog-mysql-dataload.sql";
 
   public static final String MYSQL_STORE_PROPERTIES = "org/apache/ibatis/databases/mysqlstore/mysqlstore-db.properties";
   public static final String MYSQL_STORE_DDL = "org/apache/ibatis/databases/mysqlstore/mysqlstore-db-schema.sql";
