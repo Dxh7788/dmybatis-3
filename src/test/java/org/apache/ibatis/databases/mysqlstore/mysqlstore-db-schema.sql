@@ -14,9 +14,9 @@
 --    limitations under the License.
 --
 
-drop if exists index productCat;
-drop if exists index productName;
-drop if exists index itemProd;
+drop index productCat ON product;
+drop index productName ON product;
+drop index itemProd ON item;
 
 drop table if exists lineitem ;
 drop table if exists orderstatus ;
