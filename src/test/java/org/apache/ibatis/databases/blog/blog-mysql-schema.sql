@@ -31,6 +31,7 @@ CREATE TABLE `author` (
 	PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
+AUTO_INCREMENT=8
 ;
 
 CREATE TABLE `blog` (
@@ -40,6 +41,7 @@ CREATE TABLE `blog` (
 	PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
+AUTO_INCREMENT=8
 ;
 CREATE TABLE `post` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -55,6 +57,7 @@ CREATE TABLE `post` (
 	CONSTRAINT `post_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`)
 )
 ENGINE=InnoDB
+AUTO_INCREMENT=8
 ;
 CREATE TABLE `tag` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -62,6 +65,7 @@ CREATE TABLE `tag` (
 	PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
+AUTO_INCREMENT=8
 ;
 CREATE TABLE `post_tag` (
 	`post_id` INT(11) NOT NULL,
@@ -69,6 +73,7 @@ CREATE TABLE `post_tag` (
 	PRIMARY KEY (`post_id`, `tag_id`)
 )
 ENGINE=InnoDB
+AUTO_INCREMENT=8
 ;
 CREATE TABLE `comment` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -78,6 +83,7 @@ CREATE TABLE `comment` (
 	PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
+AUTO_INCREMENT=8
 ;
 CREATE TABLE `node` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -85,4 +91,5 @@ CREATE TABLE `node` (
 	PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
+AUTO_INCREMENT=8
 ;
