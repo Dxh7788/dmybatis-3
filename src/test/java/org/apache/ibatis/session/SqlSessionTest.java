@@ -21,7 +21,7 @@ public class SqlSessionTest extends BaseDataTest {
 
     @BeforeClass
     public static void setUp() throws IOException, SQLException {
-//        createMysqlstoreDataSource();
+        createMysqlstoreDataSource();
         createBlogDataSource();
     }
 
@@ -41,7 +41,7 @@ public class SqlSessionTest extends BaseDataTest {
         SqlSession session = factory.openSession(false);
         AuthorMapper authorMapper = session.getMapper(AuthorMapper.class);
         Author author = authorMapper.selectOne(101);
-        System.out.println(author.getId());
+        System.out.println(author.getUsername());
     }
 
 }

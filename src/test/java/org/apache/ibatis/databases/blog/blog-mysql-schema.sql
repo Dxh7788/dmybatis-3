@@ -16,7 +16,11 @@
 
 DROP TABLE author IF EXISTS;
 DROP TABLE blog IF EXISTS;
-
+DROP TABLE post IF EXISTS;
+DROP TABLE tag IF EXISTS;
+DROP TABLE post_tag IF EXISTS;
+DROP TABLE comment IF EXISTS;
+DROP TABLE node IF EXISTS;
 CREATE TABLE `author` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`username` VARCHAR(255) NULL DEFAULT '0',
@@ -33,6 +37,51 @@ CREATE TABLE `blog` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`author_id` INT(11) NOT NULL DEFAULT '0',
 	`title` VARCHAR(255) NULL DEFAULT '0',
+	PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+;
+CREATE TABLE `post` (
+	`id` INT(11) NOT NULL,
+	`blog_id` INT(11) NULL DEFAULT NULL,
+	`author_id` INT(11) NOT NULL,
+	`created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`section` VARCHAR(25) NOT NULL,
+	`subject` VARCHAR(255) NOT NULL,
+	`body` LONGTEXT NOT NULL,
+	`draft` INT(11) NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `blog_id` (`blog_id`),
+	CONSTRAINT `post_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`)
+)
+ENGINE=InnoDB
+;
+CREATE TABLE `tag` (
+	`id` INT(11) NOT NULL,
+	`name` VARCHAR(255) NOT NULL,
+	PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+;
+CREATE TABLE `post_tag` (
+	`post_id` INT(11) NOT NULL,
+	`tag_id` INT(11) NOT NULL,
+	PRIMARY KEY (`post_id`, `tag_id`)
+)
+ENGINE=InnoDB
+;
+CREATE TABLE `comment` (
+	`id` INT(11) NOT NULL,
+	`post_id` INT(11) NOT NULL,
+	`name` MEDIUMTEXT NOT NULL,
+	`comment` MEDIUMTEXT NOT NULL,
+	PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+;
+CREATE TABLE `node` (
+	`id` INT(11) NOT NULL,
+	`parent_id` INT(11) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
