@@ -14,23 +14,23 @@
 --    limitations under the License.
 --
 
-drop index productCat if exists;
-drop index productName if exists;
-drop index itemProd if exists;
+drop if exists index productCat;
+drop if exists index productName;
+drop if exists index itemProd;
 
-drop table lineitem if exists;
-drop table orderstatus if exists;
-drop table orders if exists;
-drop table bannerdata if exists;
-drop table profile if exists;
-drop table signon if exists;
-drop table inventory if exists;
-drop table item if exists;
-drop table product if exists;
-drop table account if exists;
-drop table category if exists;
-drop table supplier if exists;
-drop table sequence if exists;
+drop table if exists lineitem ;
+drop table if exists orderstatus ;
+drop table if exists orders;
+drop table if exists bannerdata ;
+drop table if exists profile;
+drop table if exists signon;
+drop table if exists inventory;
+drop table if exists item;
+drop table if exists product;
+drop table if exists account ;
+drop table if exists category;
+drop table if exists supplier;
+drop table if exists sequence;
 
 create table supplier (
 suppid int not null,
