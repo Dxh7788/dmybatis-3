@@ -926,7 +926,7 @@ public class Configuration {
       }
       return value;
     }
-
+    //比如com.jk.lk,最终会以lk作为key
     private String getShortName(String key) {
       final String[] keyParts = key.split("\\.");
       return keyParts[keyParts.length - 1];
