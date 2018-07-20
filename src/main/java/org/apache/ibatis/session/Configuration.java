@@ -209,7 +209,7 @@ public class Configuration {
     typeAliasRegistry.registerAlias("LRU", LruCache.class);
     typeAliasRegistry.registerAlias("SOFT", SoftCache.class);
     typeAliasRegistry.registerAlias("WEAK", WeakCache.class);
-
+    //多数据源配置
     typeAliasRegistry.registerAlias("DB_VENDOR", VendorDatabaseIdProvider.class);
 
     typeAliasRegistry.registerAlias("XML", XMLLanguageDriver.class);
