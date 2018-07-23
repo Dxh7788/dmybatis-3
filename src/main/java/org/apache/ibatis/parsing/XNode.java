@@ -73,6 +73,7 @@ public class XNode {
     return builder.toString();
   }
 
+  //基于标识符的id
   public String getValueBasedIdentifier() {
     StringBuilder builder = new StringBuilder();
     XNode current = this;

@@ -90,6 +90,7 @@ public class XMLMapperBuilder extends BaseBuilder {
   public void parse() {
     if (!configuration.isResourceLoaded(resource)) {
       configurationElement(parser.evalNode("/mapper"));
+      //添加已经解析的resource
       configuration.addLoadedResource(resource);
       bindMapperForNamespace();
     }
@@ -118,7 +119,7 @@ public class XMLMapperBuilder extends BaseBuilder {
       parameterMapElement(context.evalNodes("/mapper/parameterMap"));
       resultMapElements(context.evalNodes("/mapper/resultMap"));
       sqlElement(context.evalNodes("/mapper/sql"));
-      //创建MappedStatement
+      //创建MappedStatement,核心配置
       buildStatementFromContext(context.evalNodes("select|insert|update|delete"));
     } catch (Exception e) {
       throw new BuilderException("Error parsing Mapper XML. The XML location is '" + resource + "'. Cause: " + e, e);
@@ -260,10 +261,9 @@ public class XMLMapperBuilder extends BaseBuilder {
     ErrorContext.instance().activity("processing " + resultMapNode.getValueBasedIdentifier());
     String id = resultMapNode.getStringAttribute("id",
         resultMapNode.getValueBasedIdentifier());
-    String type = resultMapNode.getStringAttribute("type",
-        resultMapNode.getStringAttribute("ofType",
-            resultMapNode.getStringAttribute("resultType",
-                resultMapNode.getStringAttribute("javaType"))));
+    String innerDef = resultMapNode.getStringAttribute("resultType",resultMapNode.getStringAttribute("javaType"));
+    String def = resultMapNode.getStringAttribute("ofType",innerDef);
+    String type = resultMapNode.getStringAttribute("type",def);
     String extend = resultMapNode.getStringAttribute("extends");
     Boolean autoMapping = resultMapNode.getBooleanAttribute("autoMapping");
     Class<?> typeClass = resolveClass(type);

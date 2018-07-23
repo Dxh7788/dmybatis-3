@@ -441,13 +441,15 @@ public class MapperBuilderAssistant extends BaseBuilder {
     if (javaType == null) {
       if (JdbcType.CURSOR.equals(jdbcType)) {
         javaType = java.sql.ResultSet.class;
-      } else if (Map.class.isAssignableFrom(resultType)) {
+      } else if (Map.class.isAssignableFrom(resultType)) {//如果resultType 是 Map
         javaType = Object.class;
       } else {
+        //此处会从结果类型中的get方法中找到javaType的类型,比如String getName(){return name;}则name的类型则会自动解析返回类型的getter方法,此处为String,所以说可以不配置
         MetaClass metaResultType = MetaClass.forClass(resultType, configuration.getReflectorFactory());
         javaType = metaResultType.getGetterType(property);
       }
     }
+    //如果从以上三种方式都没有找到类型,则默认为Object
     if (javaType == null) {
       javaType = Object.class;
     }
