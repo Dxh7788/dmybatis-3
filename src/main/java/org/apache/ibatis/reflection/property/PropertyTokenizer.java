@@ -23,6 +23,7 @@ import java.util.Iterator;
 public class PropertyTokenizer implements Iterator<PropertyTokenizer> {
   private String name;
   private final String indexedName;
+  //存在index必定是Collection数据类型
   private String index;
   private final String children;
 
