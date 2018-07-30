@@ -1,5 +1,7 @@
 package org.apache.ibatis.reflection;
 
+import java.util.List;
+
 /**
  *
  * @author xh.d
@@ -8,7 +10,7 @@ package org.apache.ibatis.reflection;
 public class User {
     private String name;
     private String pwd;
-    private String email;
+    private User user;
 
     public String getName() {
         return name;
@@ -24,5 +26,13 @@ public class User {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
