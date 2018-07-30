@@ -1,6 +1,4 @@
-package org.apache.ibatis.reflection;
-
-import java.util.List;
+package org.apache.ibatis.model;
 
 /**
  *

@@ -15,6 +15,8 @@
  */
 package org.apache.ibatis.reflection.wrapper;
 
+import org.apache.ibatis.model.Person;
+import org.apache.ibatis.model.User;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.ReflectionException;
 
@@ -25,11 +27,17 @@ public class DefaultObjectWrapperFactory implements ObjectWrapperFactory {
 
   @Override
   public boolean hasWrapperFor(Object object) {
+    if (object instanceof User || object instanceof Person) {
+      return true;
+    }
     return false;
   }
 
   @Override
   public ObjectWrapper getWrapperFor(MetaObject metaObject, Object object) {
+    if (object instanceof User || object instanceof Person) {
+      return new BeanWrapper(metaObject,object);
+    }
     throw new ReflectionException("The DefaultObjectWrapperFactory should never be called to provide an ObjectWrapper.");
   }
 

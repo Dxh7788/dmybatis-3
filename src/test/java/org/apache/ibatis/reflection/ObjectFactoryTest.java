@@ -1,5 +1,7 @@
 package org.apache.ibatis.reflection;
 
+import org.apache.ibatis.model.Person;
+import org.apache.ibatis.model.User;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
 import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
 

@@ -1,4 +1,4 @@
-package org.apache.ibatis.reflection;
+package org.apache.ibatis.model;
 
 /**
  * Copyright (C) 2017-2018 https://www.htouhui.com - A project by mybatis
