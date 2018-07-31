@@ -25,22 +25,18 @@
 		<id column="id" property="id" />
 		<result property="name" column="name" />
 	</resultMap>
-	<!--resultMap必须写在此处不然会报错,或者使用全名,比如org.apache.ibatis.domain.blog.mappers.AuthorMapper.baseAuthorResultMap-->
-	<!--
-		<resultMap id="baseAuthorResultMap2" type="org.apache.ibatis.domain.blog.Author">
+
+	<resultMap id="baseBookResultMapX" type="org.apache.ibatis.domain.blog.Book">
+		<id column="id" property="id" />
+		<result property="name" column="name" />
+		<association property="author" javaType="org.apache.ibatis.domain.blog.Author">
 			<id column="id" property="id" />
 			<result property="username" column="username" />
 			<result property="password" column="password" />
 			<result property="email" column="email" />
 			<result property="bio" column="bio" />
 			<result property="favouriteSection" column="favourite_section" />
-		</resultMap>
-	-->
-
-	<resultMap id="baseBookResultMapX" type="org.apache.ibatis.domain.blog.Book">
-		<id column="id" property="id" />
-		<result property="name" column="name" />
-		<association property="author" resultMap="org.apache.ibatis.domain.blog.mappers.AuthorMapper.baseAuthorResultMap"/>
+		</association>
 	</resultMap>
 
 	<select id="selectBookAndAuthors" resultMap="baseBookResultMapX">
