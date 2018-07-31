@@ -30,7 +30,32 @@
 		<result property="favouriteSection" column="favourite_section" />
 	</resultMap>
 
+	<!--实现Collection的方式1,使用这种方式可以实现结果1:n的映射,而不必将结果扩大成n:n,column="id"代表的子查询需要传入的值从数据库那个列来,ofType是结果的声明参数,可以不用-->
+	<resultMap id="cBaseAuthorResultMap" type="org.apache.ibatis.domain.blog.Author" extends="baseAuthorResultMap">
+		<collection property="books" ofType="org.apache.ibatis.domain.blog.Book" javaType="java.util.ArrayList" select="selectBooks" column="id"/>
+	</resultMap>
+
+	<!--实现Collection的方式2,使用这种方式可以实现结果n:n==1:1的映射,将结果扩大成n:n,ofType="org.apache.ibatis.domain.blog.Book"必须赋值-->
+	<resultMap id="cBaseAuthorResultMaps" type="org.apache.ibatis.domain.blog.Author" extends="baseAuthorResultMap">
+		<collection property="books" ofType="org.apache.ibatis.domain.blog.Book" javaType="java.util.ArrayList" >
+			<id column="id" property="id" />
+			<result property="name" column="name" />
+		</collection>
+	</resultMap>
+
 	<select id="selectOne" resultMap="baseAuthorResultMap">
 		SELECT * FROM author WHERE id=#{id}
+	</select>
+
+	<select id="selectAuthors" resultMap="cBaseAuthorResultMap">
+		SELECT * FROM author WHERE id=#{id}
+	</select>
+
+	<select id="selectBooks" resultMap="cBaseAuthorResultMap">
+		SELECT * FROM book WHERE author_id=#{id}
+	</select>
+
+	<select id="selectAuthorAndBooks" resultMap="cBaseAuthorResultMaps">
+		SELECT * FROM book b LEFT JOIN author a  on a.id=b.author_id WHERE  author_id=#{id}
 	</select>
 </mapper>

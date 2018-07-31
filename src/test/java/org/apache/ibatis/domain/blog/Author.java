@@ -1,6 +1,7 @@
 package org.apache.ibatis.domain.blog;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Copyright (C) 2017-2018 https://www.htouhui.com - A project by mybatis
@@ -17,6 +18,7 @@ public class Author implements Serializable{
     private String email;
     private String bio;
     private String favouriteSection;
+    private List<Book> books;
 
     public Integer getId() {
         return id;
@@ -66,4 +68,11 @@ public class Author implements Serializable{
         this.favouriteSection = favouriteSection;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 }

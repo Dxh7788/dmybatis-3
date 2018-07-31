@@ -2,6 +2,8 @@ package org.apache.ibatis.domain.blog.mappers;
 
 import org.apache.ibatis.domain.blog.Author;
 
+import java.util.List;
+
 /**
  * Copyright (C) 2017-2018 https://www.htouhui.com - A project by mybatis
  *
@@ -11,4 +13,7 @@ import org.apache.ibatis.domain.blog.Author;
 public interface AuthorMapper{
 
     Author selectOne(Integer id);
+    List<Author> selectAuthors(Integer id);
+    List<Author> selectAuthorAndBooks(Integer id);
+
 }

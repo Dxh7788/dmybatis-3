@@ -48,7 +48,18 @@ public class SqlSessionTest extends BaseDataTest {
 
         BookMapper bookMapper = session.getMapper(BookMapper.class);
         List<Book> books = bookMapper.selectBookAndAuthors(101);
-        System.out.println(books.size()==0?"Y":"Z");
+        for (Book book:books){
+            Author a = book.getAuthor();
+            System.out.println(a.getUsername());
+        }
+        System.out.println(books.size());
+
+        List<Author> authors = authorMapper.selectAuthors(101);
+        System.out.println(authors.get(0).getBooks().size());
+
+        List<Author> authors2 = authorMapper.selectAuthorAndBooks(101);
+        System.out.println(authors2.size());
+
     }
 
 }
