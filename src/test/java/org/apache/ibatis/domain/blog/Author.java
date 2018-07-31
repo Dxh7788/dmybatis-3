@@ -9,6 +9,8 @@ import java.io.Serializable;
  * @since 2018/7/18 13:20
  */
 public class Author implements Serializable{
+
+    private static final long serialVersionUID = 202672106517168427L;
     private Integer id;
     private String username;
     private String password;
@@ -63,4 +65,5 @@ public class Author implements Serializable{
     public void setFavouriteSection(String favouriteSection) {
         this.favouriteSection = favouriteSection;
     }
+
 }

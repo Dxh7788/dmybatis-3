@@ -295,6 +295,9 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
   }
 
+  /*
+  * 提供多数据库支持
+  * */
   private void databaseIdProviderElement(XNode context) throws Exception {
     DatabaseIdProvider databaseIdProvider = null;
     if (context != null) {

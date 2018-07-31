@@ -18,6 +18,7 @@ drop index productCat ON product;
 drop index productName ON product;
 drop index itemProd ON item;
 
+drop table if exists book ;
 drop table if exists lineitem ;
 drop table if exists orderstatus ;
 drop table if exists orders;
@@ -181,4 +182,14 @@ name               varchar(30)  not null,
 nextid             int          not null,
 constraint pk_sequence primary key (name)
 );
+CREATE TABLE `book` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(50) NULL DEFAULT '0',
+	`author_id` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='utf32_general_ci'
+ENGINE=InnoDB
+;
+
 

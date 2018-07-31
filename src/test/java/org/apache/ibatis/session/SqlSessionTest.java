@@ -2,7 +2,9 @@ package org.apache.ibatis.session;
 
 import org.apache.ibatis.BaseDataTest;
 import org.apache.ibatis.domain.blog.Author;
+import org.apache.ibatis.domain.blog.Book;
 import org.apache.ibatis.domain.blog.mappers.AuthorMapper;
+import org.apache.ibatis.domain.blog.mappers.BookMapper;
 import org.apache.ibatis.io.Resources;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -10,6 +12,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Copyright (C) 2017-2018 https://www.htouhui.com - A project by mybatis
@@ -42,6 +45,10 @@ public class SqlSessionTest extends BaseDataTest {
         AuthorMapper authorMapper = session.getMapper(AuthorMapper.class);
         Author author = authorMapper.selectOne(101);
         System.out.println(author.getUsername());
+
+        BookMapper bookMapper = session.getMapper(BookMapper.class);
+        List<Book> books = bookMapper.selectBookAndAuthors(101);
+        System.out.println(books.size()==0?"Y":"Z");
     }
 
 }

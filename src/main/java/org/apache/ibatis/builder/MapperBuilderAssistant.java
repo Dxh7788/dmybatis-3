@@ -109,6 +109,7 @@ public class MapperBuilderAssistant extends BaseBuilder {
     }
     try {
       unresolvedCacheRef = true;
+      //想要cache-ref就必须已经存在该cache
       Cache cache = configuration.getCache(namespace);
       if (cache == null) {
         throw new IncompleteElementException("No cache for namespace '" + namespace + "' could be found.");
@@ -117,6 +118,7 @@ public class MapperBuilderAssistant extends BaseBuilder {
       unresolvedCacheRef = false;
       return cache;
     } catch (IllegalArgumentException e) {
+      //如果没有该namespace对应的缓存,或者namespace不清晰,以及其他情况造成缓存失败的都会抛未完成异常
       throw new IncompleteElementException("No cache for namespace '" + namespace + "' could be found.", e);
     }
   }

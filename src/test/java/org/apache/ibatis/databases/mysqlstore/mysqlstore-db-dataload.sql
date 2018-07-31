@@ -115,4 +115,9 @@ INSERT INTO inventory (itemid, qty ) VALUES ('EST-26',10000);
 INSERT INTO inventory (itemid, qty ) VALUES ('EST-27',10000);
 INSERT INTO inventory (itemid, qty ) VALUES ('EST-28',10000);
 
+
+INSERT INTO `book` (`id`, `name`, `author_id`) VALUES (1, '56', 101);
+INSERT INTO `book` (`id`, `name`, `author_id`) VALUES (2, '77', 101);
+
+
 select * from inventory;
