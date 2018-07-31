@@ -36,7 +36,7 @@
 			<result property="favouriteSection" column="favourite_section" />
 		</resultMap>
 	-->
-
+	<!--association站在配置一端描述的是一对一的关系,而Collection站在配置一端描述的是一对多的关系-->
 	<resultMap id="baseBookResultMapX" type="org.apache.ibatis.domain.blog.Book">
 		<id column="id" property="id" />
 		<result property="name" column="name" />
