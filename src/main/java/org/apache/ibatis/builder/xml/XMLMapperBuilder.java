@@ -130,13 +130,17 @@ public class XMLMapperBuilder extends BaseBuilder {
 
   private void buildStatementFromContext(List<XNode> list) {
     if (configuration.getDatabaseId() != null) {
+      //多数据源配置
       buildStatementFromContext(list, configuration.getDatabaseId());
     }
+    //数据源为空,默认
     buildStatementFromContext(list, null);
   }
 
+  //select|update|delete|insert 语句的解析
   private void buildStatementFromContext(List<XNode> list, String requiredDatabaseId) {
     for (XNode context : list) {
+      //sql语句的解析器
       final XMLStatementBuilder statementParser = new XMLStatementBuilder(configuration, builderAssistant, context, requiredDatabaseId);
       try {
         statementParser.parseStatementNode();

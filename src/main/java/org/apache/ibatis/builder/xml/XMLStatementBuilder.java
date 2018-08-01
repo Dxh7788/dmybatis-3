@@ -77,24 +77,29 @@ public class XMLStatementBuilder extends BaseBuilder {
 
     Class<?> resultTypeClass = resolveClass(resultType);
     String resultSetType = context.getStringAttribute("resultSetType");
+    //解析statement的类型,有statement/prepare/callback等
     StatementType statementType = StatementType.valueOf(context.getStringAttribute("statementType", StatementType.PREPARED.toString()));
+    //解析resultset的类型
     ResultSetType resultSetTypeEnum = resolveResultSetType(resultSetType);
 
     String nodeName = context.getNode().getNodeName();
     SqlCommandType sqlCommandType = SqlCommandType.valueOf(nodeName.toUpperCase(Locale.ENGLISH));
     boolean isSelect = sqlCommandType == SqlCommandType.SELECT;
+    //如果是select语句,flushCache默认为false,其他时候flushCache开启
     boolean flushCache = context.getBooleanAttribute("flushCache", !isSelect);
+    //如果是select语句,userCache默认开启,其他时候useCache开启,默认情况下一级缓存开启
     boolean useCache = context.getBooleanAttribute("useCache", isSelect);
+    //默认不排序
     boolean resultOrdered = context.getBooleanAttribute("resultOrdered", false);
 
     // Include Fragments before parsing
     XMLIncludeTransformer includeParser = new XMLIncludeTransformer(configuration, builderAssistant);
     includeParser.applyIncludes(context.getNode());
 
-    // Parse selectKey after includes and remove them.
+    // Parse selectKey after includes and remove them.includes解析后解析selectKey然后移除includes
     processSelectKeyNodes(id, parameterTypeClass, langDriver);
     
-    // Parse the SQL (pre: <selectKey> and <include> were parsed and removed)
+    // Parse the SQL (pre: <selectKey> and <include> were parsed and removed) selectKey和include解析完并移除后,解析SQL
     SqlSource sqlSource = langDriver.createSqlSource(configuration, context, parameterTypeClass);
     String resultSets = context.getStringAttribute("resultSets");
     String keyProperty = context.getStringAttribute("keyProperty");
