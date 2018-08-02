@@ -31,6 +31,7 @@ public class Jdk {
   static {
     boolean available = false;
     try {
+      //使用这种方式来给属性赋值
       Resources.classForName("java.lang.reflect.Parameter");
       available = true;
     } catch (ClassNotFoundException e) {

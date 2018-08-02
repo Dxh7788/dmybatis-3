@@ -57,6 +57,7 @@ public class ParamNameResolver {
     int paramCount = paramAnnotations.length;
     // get names from @Param annotations
     for (int paramIndex = 0; paramIndex < paramCount; paramIndex++) {
+      //RowBounds和ResultHandler不用加@Param
       if (isSpecialParameter(paramTypes[paramIndex])) {
         // skip special parameters
         continue;
@@ -70,7 +71,7 @@ public class ParamNameResolver {
         }
       }
       if (name == null) {
-        // @Param was not specified.
+        // @Param was not specified.没有配置@Param使用真正的参数名称
         if (config.isUseActualParamName()) {
           name = getActualParamName(method, paramIndex);
         }
@@ -82,6 +83,7 @@ public class ParamNameResolver {
       }
       map.put(paramIndex, name);
     }
+    //结果是一个不能修改的有序Map
     names = Collections.unmodifiableSortedMap(map);
   }
 

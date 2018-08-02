@@ -79,6 +79,7 @@ public class MapperMethod {
         } else if (method.returnsCursor()) {//存储过程调用
           result = executeForCursor(sqlSession, args);
         } else {//返回为空且没有配置ResultHandler时或者是单个对象时调用
+          //这一步会把函数中的参数转换为Map或者JavaBean
           Object param = method.convertArgsToSqlCommandParam(args);
           //选取单个对象时统一调用session的selectOne
           result = sqlSession.selectOne(command.getName(), param);

@@ -48,7 +48,10 @@
 	</select>
 
 	<select id="selectAuthors" resultMap="cBaseAuthorResultMap">
-		SELECT * FROM author WHERE id=#{id}
+		SELECT * FROM author WHERE id=#{param1} and username=#{param2}
+	</select>
+	<select id="selectAuthorsByUser" resultMap="baseAuthorResultMap" parameterType="org.apache.ibatis.domain.blog.Author">
+		SELECT * FROM author WHERE id=#{id} and username=#{username}
 	</select>
 
 	<select id="selectBooks" resultMap="cBaseAuthorResultMap">
