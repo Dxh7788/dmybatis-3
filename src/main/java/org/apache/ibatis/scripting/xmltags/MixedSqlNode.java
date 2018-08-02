@@ -27,6 +27,7 @@ public class MixedSqlNode implements SqlNode {
     this.contents = contents;
   }
 
+  //MixedSqlNode会通过apply来解析动态sql
   @Override
   public boolean apply(DynamicContext context) {
     for (SqlNode sqlNode : contents) {

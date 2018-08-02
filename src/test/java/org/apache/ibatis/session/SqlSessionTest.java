@@ -43,8 +43,8 @@ public class SqlSessionTest extends BaseDataTest {
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader);
         SqlSession session = factory.openSession(false);
         AuthorMapper authorMapper = session.getMapper(AuthorMapper.class);
-        /*Author author = authorMapper.selectOne(101);
-        System.out.println(author.getUsername());*/
+        Author author = authorMapper.selectOne(101);
+        System.out.println(author.getUsername());
 
         /*BookMapper bookMapper = session.getMapper(BookMapper.class);
         List<Book> books = bookMapper.selectBookAndAuthors(101);
@@ -59,8 +59,8 @@ public class SqlSessionTest extends BaseDataTest {
         author.setId(101);
         author.setUsername("Jim");
         */
-        List<Author> authors = authorMapper.selectAuthors(101,"Jim");
-        System.out.println(authors.get(0).getBooks().size());
+        /*List<Author> authors = authorMapper.selectAuthors(101,"jim");
+        System.out.println(authors.size());*/
 
         /*List<Author> authors2 = authorMapper.selectAuthorAndBooks(101);
         System.out.println(authors2.size());*/
