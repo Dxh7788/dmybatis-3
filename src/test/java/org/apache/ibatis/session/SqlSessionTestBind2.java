@@ -2,9 +2,7 @@ package org.apache.ibatis.session;
 
 import org.apache.ibatis.BaseDataTest;
 import org.apache.ibatis.domain.blog.Author;
-import org.apache.ibatis.domain.blog.Book;
 import org.apache.ibatis.domain.blog.mappers.AuthorMapper;
-import org.apache.ibatis.domain.blog.mappers.BookMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.model.User;
 import org.junit.BeforeClass;
@@ -21,7 +19,7 @@ import java.util.List;
  * @author xh.d
  * @since 2018/7/17 17:36
  */
-public class SqlSessionTest extends BaseDataTest {
+public class SqlSessionTestBind2 extends BaseDataTest {
 
     @BeforeClass
     public static void setUp() throws IOException, SQLException {
