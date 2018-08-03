@@ -76,7 +76,7 @@ public class XMLScriptBuilder extends BaseBuilder {
     return sqlSource;
   }
 
-  //如果是非动态标签,则contents为empty
+  //如果是非动态标签,则contents为empty.该步骤是要首先校验的.是否为#{}配置
   protected MixedSqlNode parseDynamicTags(XNode node) {
     List<SqlNode> contents = new ArrayList<SqlNode>();
     NodeList children = node.getNode().getChildNodes();
@@ -84,6 +84,7 @@ public class XMLScriptBuilder extends BaseBuilder {
       XNode child = node.newXNode(children.item(i));
       if (child.getNode().getNodeType() == Node.CDATA_SECTION_NODE || child.getNode().getNodeType() == Node.TEXT_NODE) {
         String data = child.getStringBody("");
+        //如果是文本内容,待带$代表是动态,则会添加TextSqlNode.如果没有则添加StaticTextSqlNode
         TextSqlNode textSqlNode = new TextSqlNode(data);
         if (textSqlNode.isDynamic()) {
           contents.add(textSqlNode);

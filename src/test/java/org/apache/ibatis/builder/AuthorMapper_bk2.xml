@@ -43,18 +43,17 @@
 		</collection>
 	</resultMap>
 
-	<!--<select id="selectOne" resultMap="baseAuthorResultMap">
+	<select id="selectOne" resultMap="baseAuthorResultMap">
 		SELECT * FROM author <where> id=#{id} </where>
 	</select>
 
 	<select id="selectAuthors" resultMap="cBaseAuthorResultMap">
 		SELECT * FROM author WHERE id=#{param1} and username=#{param1}
-	</select>-->
-	<select id="selectAuthorsCopy" resultMap="baseAuthorResultMap">
-		<bind name="name" value="'%'+_parameter.getName()+'%'"/>
-		SELECT * FROM author WHERE username like '${name}'
 	</select>
-	<!--<select id="selectAuthorsByUser" resultMap="baseAuthorResultMap" parameterType="org.apache.ibatis.domain.blog.Author">
+	<select id="selectAuthorsCopy" resultMap="cBaseAuthorResultMap">
+		SELECT * FROM author WHERE id=${id}
+	</select>
+	<select id="selectAuthorsByUser" resultMap="baseAuthorResultMap" parameterType="org.apache.ibatis.domain.blog.Author">
 		SELECT * FROM author WHERE id=#{id} and username=#{username}
 	</select>
 
@@ -64,5 +63,5 @@
 
 	<select id="selectAuthorAndBooks" resultMap="cBaseAuthorResultMaps">
 		SELECT * FROM book b LEFT JOIN author a  on a.id=b.author_id WHERE  author_id=#{id}
-	</select>-->
+	</select>
 </mapper>
