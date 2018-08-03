@@ -69,20 +69,23 @@ public class MapperMethod {
         break;
       }
       case SELECT:
-        //想使用resultHandler必须返回空值
+        //想使用resultHandler必须返回空值,很少使用.没有必要使用框架代码,如有业务需要,可自行处理
         if (method.returnsVoid() && method.hasResultHandler()) {//返回为空而且配置了自身的ResultHandler时调用
           executeWithResultHandler(sqlSession, args);
           result = null;
         } else if (method.returnsMany()) {//返回为数组或者集合时调用
           result = executeForMany(sqlSession, args);
-        } else if (method.returnsMap()) {//返回为Map时调用
+        } else if (method.returnsMap()) {//配置MapKey时调用该方法,处理嵌套Map
           result = executeForMap(sqlSession, args);
         } else if (method.returnsCursor()) {//存储过程调用
           result = executeForCursor(sqlSession, args);
-        } else {//返回为空且没有配置ResultHandler时或者是单个对象时调用
-          //这一步会把函数中的参数转换为Map或者JavaBean
+        } else {
+          /* 返回Java类型一级JavaBean则走这段代码
+           * 返回为空且没有配置ResultHandler时或者是单个对象时调用
+           * 这一步会把函数中的参数转换为Map或者JavaBean
+           * 选取单个对象时统一调用session的selectOne
+           * */
           Object param = method.convertArgsToSqlCommandParam(args);
-          //选取单个对象时统一调用session的selectOne
           result = sqlSession.selectOne(command.getName(), param);
         }
         break;
