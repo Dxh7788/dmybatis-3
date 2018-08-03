@@ -23,11 +23,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.ibatis.session.SqlSession;
 
 /**
+ * 使用泛型,避免强转
  * @author Lasse Voss
  */
 public class MapperProxyFactory<T> {
 
   private final Class<T> mapperInterface;
+  //暂时还没有用到方法缓存
   private final Map<Method, MapperMethod> methodCache = new ConcurrentHashMap<Method, MapperMethod>();
 
   public MapperProxyFactory(Class<T> mapperInterface) {

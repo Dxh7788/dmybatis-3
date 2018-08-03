@@ -220,6 +220,7 @@ public class MapperMethod {
       final Class<?> declaringClass = method.getDeclaringClass();
       MappedStatement ms = resolveMappedStatement(mapperInterface, methodName, declaringClass,
           configuration);
+      //如果没有配置响应的Sql信息,则该函数只是一个Flush功能的函数
       if (ms == null) {
         if (method.getAnnotation(Flush.class) != null) {
           name = null;
@@ -292,9 +293,11 @@ public class MapperMethod {
       this.returnsCursor = Cursor.class.equals(this.returnType);
       this.mapKey = getMapKey(method);
       this.returnsMap = this.mapKey != null;
+      //RowBounds的参数位置
       this.rowBoundsIndex = getUniqueParamIndex(method, RowBounds.class);
       this.resultHandlerIndex = getUniqueParamIndex(method, ResultHandler.class);
-      this.paramNameResolver = new ParamNameResolver(configuration, method);//参数解析器
+      //参数解析器
+      this.paramNameResolver = new ParamNameResolver(configuration, method);
     }
 
     public Object convertArgsToSqlCommandParam(Object[] args) {

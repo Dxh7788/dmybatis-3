@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * Mapper接口注册器,所有的mapper都保存在此处
  * @author Clinton Begin
  * @author Eduardo Macarron
  * @author Lasse Voss

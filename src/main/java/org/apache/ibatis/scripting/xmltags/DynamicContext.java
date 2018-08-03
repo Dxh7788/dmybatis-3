@@ -42,6 +42,9 @@ public class DynamicContext {
   private final StringBuilder sqlBuilder = new StringBuilder();
   private int uniqueNumber = 0;
 
+  /**
+   * DynamicContext会把传入的参数,变为Map映射
+   * */
   public DynamicContext(Configuration configuration, Object parameterObject) {
     if (parameterObject != null && !(parameterObject instanceof Map)) {
       MetaObject metaObject = configuration.newMetaObject(parameterObject);

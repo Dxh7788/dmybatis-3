@@ -328,7 +328,6 @@ public final class MappedStatement {
         }
       }
     }
-    System.out.println("raw解析出来的sql:"+boundSql.getSql());
     return boundSql;
   }
 
