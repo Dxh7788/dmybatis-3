@@ -99,6 +99,7 @@ public class TextSqlNode implements SqlNode {
       return isDynamic;
     }
 
+    //如果context不为空,则为动态sql
     @Override
     public String handleToken(String content) {
       this.isDynamic = true;

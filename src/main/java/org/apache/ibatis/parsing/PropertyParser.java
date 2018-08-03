@@ -55,7 +55,9 @@ public class PropertyParser {
     GenericTokenParser parser = new GenericTokenParser("${", "}", handler);
     return parser.parse(string);
   }
-
+  /*
+  * 变量设置
+  * */
   private static class VariableTokenHandler implements TokenHandler {
     private final Properties variables;
     private final boolean enableDefaultValue;
