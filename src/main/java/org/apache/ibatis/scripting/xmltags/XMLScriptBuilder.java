@@ -30,6 +30,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
+ * 动态语句解析器
  * @author Clinton Begin
  */
 public class XMLScriptBuilder extends BaseBuilder {
