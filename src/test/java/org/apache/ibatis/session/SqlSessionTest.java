@@ -2,9 +2,8 @@ package org.apache.ibatis.session;
 
 import org.apache.ibatis.BaseDataTest;
 import org.apache.ibatis.domain.blog.Author;
-import org.apache.ibatis.domain.blog.Book;
 import org.apache.ibatis.domain.blog.mappers.AuthorMapper;
-import org.apache.ibatis.domain.blog.mappers.BookMapper;
+import org.apache.ibatis.executor.result.DefaultResultHandler;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.model.User;
 import org.junit.BeforeClass;
@@ -50,8 +49,8 @@ public class SqlSessionTest extends BaseDataTest {
         User user = new User();
         user.setName("jim");
         user.setId(101);
-        List<Author> authors = authorMapper.selectAuthorsCopy(user);
-        System.out.println(authors.size());
+        List<Author> list =authorMapper.selectAuthorsCopy(user);
+        System.out.println(list.size());
         /*BookMapper bookMapper = session.getMapper(BookMapper.class);
         List<Book> books = bookMapper.selectBookAndAuthors(101);
         for (Book book:books){

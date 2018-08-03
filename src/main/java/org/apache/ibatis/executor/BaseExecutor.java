@@ -164,6 +164,7 @@ public abstract class BaseExecutor implements Executor {
     List<E> list;
     try {
       queryStack++;
+      //如果使用了ResultHandler则不会使用一级缓存
       list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
       if (list != null) {
         //如果是存储过程的缓存,则进入handleLocallyCachedOutputParameters进行参数处理,过滤出来的就是存储过程的缓存内容

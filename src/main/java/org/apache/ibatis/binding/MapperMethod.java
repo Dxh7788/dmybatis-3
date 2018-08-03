@@ -69,6 +69,7 @@ public class MapperMethod {
         break;
       }
       case SELECT:
+        //想使用resultHandler必须返回空值
         if (method.returnsVoid() && method.hasResultHandler()) {//返回为空而且配置了自身的ResultHandler时调用
           executeWithResultHandler(sqlSession, args);
           result = null;
@@ -274,6 +275,7 @@ public class MapperMethod {
     private final boolean returnsVoid;
     private final boolean returnsCursor;
     private final Class<?> returnType;
+    private final ResultHandler aResultHandler = null;
     private final String mapKey;
     private final Integer resultHandlerIndex;
     private final Integer rowBoundsIndex;
