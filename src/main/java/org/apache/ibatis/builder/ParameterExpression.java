@@ -40,7 +40,9 @@ public class ParameterExpression extends HashMap<String, String> {
   }
 
   private void parse(String expression) {
+    //不仅仅是跳过空白字符,而是要跳过ASCII中的所有大于0x20的字符
     int p = skipWS(expression, 0);
+    //如果是括号,则为表达式.否则为属性
     if (expression.charAt(p) == '(') {
       expression(expression, p + 1);
     } else {
@@ -51,6 +53,7 @@ public class ParameterExpression extends HashMap<String, String> {
   private void expression(String expression, int left) {
     int match = 1;
     int right = left + 1;
+    //使得括号正好匹配
     while (match > 0) {
       if (expression.charAt(right) == ')') {
         match--;
