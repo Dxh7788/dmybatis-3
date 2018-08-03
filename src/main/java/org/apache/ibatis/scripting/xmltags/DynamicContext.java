@@ -49,6 +49,7 @@ public class DynamicContext {
     } else {
       bindings = new ContextMap(null);
     }
+    //执行时的参数
     bindings.put(PARAMETER_OBJECT_KEY, parameterObject);
     bindings.put(DATABASE_ID_KEY, configuration.getDatabaseId());
   }
