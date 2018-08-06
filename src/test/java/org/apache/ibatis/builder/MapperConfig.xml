@@ -4,6 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource="org/apache/ibatis/builder/jdbc.properties"/>
+    <plugins>
+        <plugin interceptor="org.dxh.intercept.MyInterceptor"></plugin>
+    </plugins>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"></transactionManager>
