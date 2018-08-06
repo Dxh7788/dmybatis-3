@@ -65,11 +65,11 @@ public class TypeParameterResolver {
   }
 
   private static Type resolveType(Type type, Type srcType, Class<?> declaringClass) {
-    if (type instanceof TypeVariable) {
+    if (type instanceof TypeVariable) {//类型参数
       return resolveTypeVar((TypeVariable<?>) type, srcType, declaringClass);
-    } else if (type instanceof ParameterizedType) {
+    } else if (type instanceof ParameterizedType) {//纯泛型
       return resolveParameterizedType((ParameterizedType) type, srcType, declaringClass);
-    } else if (type instanceof GenericArrayType) {
+    } else if (type instanceof GenericArrayType) {//数组泛型
       return resolveGenericArrayType((GenericArrayType) type, srcType, declaringClass);
     } else {
       return type;
