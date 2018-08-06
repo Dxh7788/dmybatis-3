@@ -49,7 +49,7 @@ public class SqlSessionTest extends BaseDataTest {
         User user = new User();
         user.setName("jim");
         user.setId(101);
-        List<Author> list =authorMapper.selectAuthorsCopy(user);
+        List<Author> list =authorMapper.selectAuthorsCopy(101L);
         System.out.println(list.size());
         /*BookMapper bookMapper = session.getMapper(BookMapper.class);
         List<Book> books = bookMapper.selectBookAndAuthors(101);
