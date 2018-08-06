@@ -278,7 +278,6 @@ public class MapperMethod {
     private final boolean returnsVoid;
     private final boolean returnsCursor;
     private final Class<?> returnType;
-    private final ResultHandler aResultHandler = null;
     private final String mapKey;
     private final Integer resultHandlerIndex;
     private final Integer rowBoundsIndex;
