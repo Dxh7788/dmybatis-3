@@ -1,5 +1,7 @@
 package org.dxh.intercept;
 
+import org.apache.ibatis.executor.statement.PreparedStatementHandler;
+import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.plugin.*;
@@ -19,11 +21,11 @@ public class MyInterceptor implements Interceptor {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
+        RoutingStatementHandler statementHandler = (RoutingStatementHandler) invocation.getTarget();
         BoundSql boundSql = statementHandler.getBoundSql();
         String sql = boundSql.getSql();
-        System.out.println("mybatis intercept sql:{"+sql+"}");
-        logger.info("mybatis intercept sql:{}", sql);
+        System.out.println("mybatis intercept sql:"+sql);
+        logger.info("mybatis intercept sql:", sql);
         return invocation.proceed();
     }
 
